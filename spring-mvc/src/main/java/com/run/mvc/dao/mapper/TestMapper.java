@@ -1,8 +1,7 @@
-package com.run.template.dao.mapper;
+package com.run.mvc.dao.mapper;
 
-
-import com.run.template.dao.model.Test;
-import com.run.template.dao.model.TestExample;
+import com.run.mvc.dao.model.Test;
+import com.run.mvc.dao.model.TestExample;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.RowBounds;
 

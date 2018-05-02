@@ -1,6 +1,6 @@
 package com.run.test;
 
-import com.run.template.service.ITestService;
+import com.run.mvc.service.ITestService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
