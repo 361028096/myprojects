@@ -2,11 +2,30 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:mvc="http://www.springframework.org/schema/mvc"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+       xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
 
     <!-- 扫描注解 -->
     <context:component-scan base-package="com.run.mvc.controller"/>
+
+    <!--<bean id="controllerAop" class="com.run.mvc.aop.ControllerAop"/>-->
+    <!--<aop:config>-->
+        <!--&lt;!&ndash;<aop:pointcut id="pointcut"-->
+        <!--expression="execution(com.bkjk.cf.finance.vo.ResponseVo com.bkjk.cf.finance.controller.*.*(..))"/>&ndash;&gt;-->
+        <!--<aop:pointcut id="pointcut"-->
+                      <!--expression="execution(* com.run.mvc.controller.TestAopController.*(..))"/>-->
+        <!--<aop:aspect ref="controllerAop">-->
+            <!--&lt;!&ndash;<aop:around method="handlerControllerMethod"&ndash;&gt;-->
+            <!--&lt;!&ndash;pointcut-ref="pointcut"/>&ndash;&gt;-->
+            <!--<aop:before method="beforeMethod" pointcut-ref="pointcut"/>-->
+            <!--<aop:after method="afterMethod" pointcut-ref="pointcut"/>-->
+            <!--<aop:after-returning method="returnMethod" pointcut-ref="pointcut"/>-->
+            <!--<aop:after-throwing method="throwableMethod" pointcut-ref="pointcut" throwing="tx"/>-->
+        <!--</aop:aspect>-->
+    <!--</aop:config>-->
+    <!--<aop:aspectj-autoproxy/>-->
+
+
 
     <!-- 静态资源(js、image等)的访问 -->
     <mvc:default-servlet-handler/>
