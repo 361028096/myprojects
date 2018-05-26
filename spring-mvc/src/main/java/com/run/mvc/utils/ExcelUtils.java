@@ -3,12 +3,16 @@ package com.run.mvc.utils;
 
 import com.run.mvc.utils.model.TittleModel;
 import org.apache.commons.lang.StringUtils;
-import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.util.IOUtils;
 import org.apache.poi.xssf.usermodel.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -85,7 +89,97 @@ public class ExcelUtils {
         return true;
     }
 
-    public static List<Map<String,String>> parseExcel() {
-        return null;
+    /**
+     * 读取 office excel
+     *
+     * @return
+     * @throws IOException
+     */
+    public static List<List<Object>> readExcel(InputStream inputStream) throws IOException {
+        List<List<Object>> list = new LinkedList<>();
+        Workbook workbook = null;
+        try {
+            workbook = WorkbookFactory.create(inputStream);
+            int sheetsNumber = workbook.getNumberOfSheets();
+            for (int n = 0; n < sheetsNumber; n++) {
+                Sheet sheet = workbook.getSheetAt(n);
+                Object value = null;
+                Row row = null;
+                Cell cell = null;
+                for (int i = sheet.getFirstRowNum() + 1; i <= sheet.getPhysicalNumberOfRows(); i++) { // 从第二行开始读取
+                    row = sheet.getRow(i);
+                    if (row == null) {
+                        continue;
+                    }
+                    List<Object> linked = new LinkedList<>();
+                    for (int j = row.getFirstCellNum(); j <= row.getLastCellNum(); j++) {
+                        cell = row.getCell(j);
+                        if (cell == null) {
+                            continue;
+                        }
+                        value = getCellValue(cell);
+                        linked.add(value);
+                    }
+                    list.add(linked);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            IOUtils.closeQuietly(workbook);
+            IOUtils.closeQuietly(inputStream);
+        }
+        return list;
     }
+
+    /**
+     * 获取excel 单元格数据
+     *
+     * @param cell
+     * @return
+     */
+    private static Object getCellValue(Cell cell) {
+        Object value = null;
+        switch (cell.getCellTypeEnum()) {
+            case _NONE:
+                break;
+            case STRING:
+                value = cell.getStringCellValue();
+                break;
+            case NUMERIC:
+                value = cell.toString();
+//                if(DateUtil.isCellDateFormatted(cell)){ //日期
+//                    value = FAST_DATE_FORMAT.format(DateUtil.getJavaDate(cell.getNumericCellValue()));//统一转成 yyyy/MM/dd
+//                } else if("@".equals(cell.getCellStyle().getDataFormatString())
+//                        || "General".equals(cell.getCellStyle().getDataFormatString())
+//                        || "0_ ".equals(cell.getCellStyle().getDataFormatString())){
+//                    //文本  or 常规 or 整型数值
+//                    value = DECIMAL_FORMAT.format(cell.getNumericCellValue());
+//                } else if(POINTS_PATTERN.matcher(cell.getCellStyle().getDataFormatString()).matches()){ //正则匹配小数类型
+//                    value = cell.getNumericCellValue();  //直接显示
+//                } else if("0.00E+00".equals(cell.getCellStyle().getDataFormatString())){//科学计数
+//                    value = cell.getNumericCellValue(); //待完善
+//                    value = DECIMAL_FORMAT_NUMBER.format(value);
+//                } else if("0.00%".equals(cell.getCellStyle().getDataFormatString())){//百分比
+//                    value = cell.getNumericCellValue(); //待完善
+//                    value = DECIMAL_FORMAT_PERCENT.format(value);
+//                } else if("# ?/?".equals(cell.getCellStyle().getDataFormatString())){//分数
+//                    value = cell.getNumericCellValue(); ////待完善
+//                } else { //货币
+//                    value = cell.getNumericCellValue();
+//                    value = DecimalFormat.getCurrencyInstance().format(value);
+//                }
+                break;
+            case BOOLEAN:
+                value = cell.getBooleanCellValue();
+                break;
+            case BLANK:
+                //value = ",";
+                break;
+            default:
+                value = cell.toString();
+        }
+        return value;
+    }
+
 }

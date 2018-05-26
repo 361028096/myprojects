@@ -2,8 +2,15 @@ package com;
 
 import com.run.mvc.utils.ExcelUtils;
 import com.run.mvc.utils.model.TittleModel;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -13,6 +20,8 @@ import java.util.*;
  * @date 2018/5/13
  */
 public class testExcel {
+
+    private static final Logger logger = LoggerFactory.getLogger(testExcel.class);
     @Test
     public void test(){
         List<String> stringList = new ArrayList<>();
@@ -71,7 +80,50 @@ public class testExcel {
         String outputPath = "d://" ;
         String outputFileName = "20180514.xlsx";
         ExcelUtils.exportExcel(tittleModelList,dataListA,sheetAName,outputPath,outputFileName);
-
-
     }
+
+    @Test
+    public void testParse() {
+        try {
+            InputStream inputStream = new FileInputStream("d://20180514.xlsx");
+            System.out.println(ExcelUtils.readExcel(inputStream));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testNull() {
+        com.run.mvc.dao.model.Test  test = new com.run.mvc.dao.model.Test();
+        test.setId("1");
+        System.out.println(StringUtils.trimToEmpty(new BigDecimal(1.1).toString()));
+        System.out.println(StringUtils.trimToEmpty(""));
+    }
+
+    @Test
+    public void testDoWhile() {
+        Integer times = 0;
+        Boolean result = false;
+        do{
+            times++;
+            if (times==2) {
+                result = true;
+            }
+            if(result) {
+                break;
+            }
+        }while(times<5);
+        System.out.println(times);
+    }
+
+    @Test
+    public void testLog() {
+        try {
+            throw new NullPointerException("错误");
+        } catch (Exception e) {
+            logger.error("错误",e);
+            throw new NullPointerException("打印"+e);
+        }
+    }
+
 }

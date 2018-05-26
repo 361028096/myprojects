@@ -1,13 +1,20 @@
 package com;
 
+import com.alibaba.fastjson.JSON;
+import com.run.mvc.dao.mapper.TestMapper;
+import com.run.mvc.dao.model.TestExample;
 import com.run.mvc.service.ITestService;
 import com.run.mvc.vo.ResultBean;
+import org.apache.commons.lang3.time.DateUtils;
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.annotation.Resource;
+import java.util.*;
 
 /**
  * @author hewei
@@ -21,6 +28,8 @@ public class test {
 
     @Resource
     private ITestService testService;
+    @Resource
+    private TestMapper testMapper;
 
     @Test
     public void testLombok() {
@@ -78,5 +87,100 @@ public class test {
         com.run.mvc.dao.model.Test test =  testService.selectTest();
         test.getClass();
         System.out.println();
+    }
+
+    @Test
+    public void setTestService() {
+        List<String> nameList = new ArrayList<>();
+        nameList.add("贺炜");
+        nameList.add("haha");
+        TestExample testExample = new TestExample();
+        TestExample.Criteria testExampleCriteria = testExample.createCriteria();
+        testExampleCriteria.andNameIn(nameList);
+
+        com.run.mvc.dao.model.Test test = new com.run.mvc.dao.model.Test();
+        test.setInstalment(7);
+        testMapper.updateByExampleSelective(test,testExample);
+    }
+
+    @Test
+    public void testRange() {
+        TestExample testExample = new TestExample();
+        TestExample.Criteria testExampleCriteria = testExample.createCriteria();
+
+        DateTime dateTime = new DateTime().withMillisOfDay(0);
+        testExampleCriteria.andFreezeTimeLessThan(dateTime.toDate());
+        List<com.run.mvc.dao.model.Test> testList = testMapper.selectByExample(testExample);
+        System.out.println(testList);
+        System.out.println(dateTime);
+    }
+
+    @Test
+    public void testJoda() {
+        DateTime dateTime = new DateTime();
+        System.out.println(dateTime.centuryOfEra());
+    }
+
+    @Test
+    public void testMap() {
+        Map map = new HashMap();
+        map = null;
+        System.out.println(map.size());
+
+    }
+
+    @Test
+    public void test7() {
+        Map map = new HashMap();
+//        map.put(1,1);
+        map.put("            ",null);
+        map.put("asdf","null");
+        Map map2 = new HashMap();
+        map2 = (Map) map.get("f");
+        System.out.println(map2);
+
+//        map.put(null,null);
+        System.out.println(JSON.toJSONString(map));
+//        System.out.println(null != map && map.size() == 1 );
+//        System.out.println(map.size());
+//        System.out.println(map.get(""));
+        System.out.println(Arrays.asList(map));
+    }
+
+    @Test
+    public void test8() {
+        System.out.println(testMapper.countByExample(new TestExample()));
+    }
+
+    @Test
+    public void testNum() {
+        Long n = 0L;
+        Long m = 0L;
+        if (n>0L || m>0L) {
+            System.out.println(true);
+        } else {
+            System.out.println(false);
+        }
+    }
+
+    @Test
+    public void testLocalTime1() {
+        LocalDate localDate = new LocalDate();
+        System.out.println();
+    }
+
+    @Test
+    public void testNull() {
+        TestExample testExample = new TestExample();
+        TestExample.Criteria testExampleCriteria = testExample.createCriteria();
+        testExampleCriteria.andNameEqualTo("abcf");
+        List<com.run.mvc.dao.model.Test> testList = testMapper.selectByExample(testExample);
+        System.out.println(testList.isEmpty());
+        System.out.println(testList.size() == 0);
+    }
+
+    @Test
+    public void test2() {
+        System.out.println(DateUtils.addDays(new Date(),1));
     }
 }
