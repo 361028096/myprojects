@@ -1,4 +1,4 @@
-package com.run.myprojects.design.patterns.chapter01Singleton;
+package com.run.myprojects.design.patterns.chapter01Singleton.definition;
 
 /**
  * @author : hewei

@@ -20,7 +20,7 @@ public class Emperor {
     // 产生所有的对象
     static {
         for (int i = 0; i < maxNumOfEmperor; i++) {
-            emperorList.add(new Emperor("皇"+(i)+"帝"));
+            emperorList.add(new Emperor("皇"+(i+1)+"帝"));
         }
     }
     private Emperor() {}

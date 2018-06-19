@@ -10,7 +10,7 @@ public class Minister {
         int ministerNum = 5;
         for (int i = 0; i < ministerNum; i++) {
             Emperor emperor = Emperor.getInstance();
-            System.out.println("第"+i+"个大臣参拍的是：");
+            System.out.println("第" + (i+1) +"个大臣参拍的是：");
             emperor.say();
         }
     }
