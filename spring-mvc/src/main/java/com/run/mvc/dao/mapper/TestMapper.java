@@ -31,4 +31,6 @@ public interface TestMapper {
     int updateByPrimaryKeySelective(Test record);
 
     int updateByPrimaryKey(Test record);
+
+    Test selectById(String id);
 }

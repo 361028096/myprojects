@@ -1,5 +1,8 @@
 # 单例模式 Singleton Pattern
 
+## 关键词
+线程安全
+
 ## 最佳实践
 1. Spring中，每个Bean默认就是单例的  
 每个Bean默认就是单例的，这样做的优点是Spring容器可以管理这些Bean的生命周期。如果采用非单例模式（prototype类型）,则Bean初  

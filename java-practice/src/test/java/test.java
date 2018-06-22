@@ -1,8 +1,12 @@
+import com.alibaba.fastjson.JSON;
+import com.run.practice.suggest151.dto.Student;
 import org.junit.Test;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -48,6 +52,26 @@ public class test {
         Date date = new Date();
         date.setHours(23);
         System.out.println(simpleDateFormat.format(date));
+    }
+
+    @Test
+    public void testMap() {
+        Map<String,Object> map = new HashMap<>();
+        System.out.println(map);
+        System.out.println(JSON.toJSONString(map));
+        System.out.println(map.isEmpty());
+    }
+
+    @Test
+    public void testNull() {
+        System.out.println("aa".equals("aa"));
+    }
+
+    @Test
+    public void testStudent() {
+        Student student = new Student();
+        student.getName();
+        System.out.println(student.getName());
     }
 
 

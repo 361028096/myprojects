@@ -6,6 +6,7 @@ import com.run.mvc.dao.model.TestExample;
 import com.run.mvc.service.ITestService;
 import com.run.mvc.vo.ResultBean;
 import org.apache.commons.lang3.time.DateUtils;
+import org.apache.commons.net.nntp.Threadable;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.junit.Test;
@@ -175,12 +176,57 @@ public class test {
         TestExample.Criteria testExampleCriteria = testExample.createCriteria();
         testExampleCriteria.andNameEqualTo("abcf");
         List<com.run.mvc.dao.model.Test> testList = testMapper.selectByExample(testExample);
+        System.out.println(Arrays.asList(testList));
         System.out.println(testList.isEmpty());
         System.out.println(testList.size() == 0);
+        System.out.println(testList == null);
     }
 
     @Test
     public void test2() {
         System.out.println(DateUtils.addDays(new Date(),1));
+    }
+
+    @Test
+    public void testRange2() {
+        TestExample testExample = new TestExample();
+        TestExample.Criteria testExampleCriteria = testExample.createCriteria();
+        testExampleCriteria.andInstalmentBetween(9,9);
+        List<com.run.mvc.dao.model.Test> testList = testMapper.selectByExample(testExample);
+        System.out.println(Arrays.asList(testList));
+        System.out.println(testList.isEmpty());
+        System.out.println(testList.size() == 0);
+        System.out.println(testList == null);
+    }
+
+    @Test
+    public void testNull2() {
+        List<com.run.mvc.dao.model.Test> testList = new ArrayList<>();
+        testList = null;
+        System.out.println(testList.isEmpty());
+    }
+
+    @Test
+    public void testFinal() {
+        final List<String> strList = new ArrayList<>();
+        strList.add("Hello");
+        strList.add("world");
+        List<String> unmodifiableStrList = strList;
+        unmodifiableStrList.add("again");
+        System.out.println(JSON.toJSONString(strList));
+        System.out.println(JSON.toJSONString(unmodifiableStrList));
+
+    }
+
+    @Test
+    public void testInsert() {
+        com.run.mvc.dao.model.Test test = new com.run.mvc.dao.model.Test();
+        test.setId("4");
+        System.out.println(testMapper.insertSelective(test));
+    }
+
+    @Test
+    public void setTestService2() {
+        System.out.println(testMapper.selectById("12")== null);
     }
 }

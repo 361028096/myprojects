@@ -1,8 +1,8 @@
 package com.run.myprojects.design.patterns.chapter02Factory.expand.LazyInitializationFactory;
 
-import com.run.myprojects.design.patterns.chapter02Factory.ConcreteProduct1;
-import com.run.myprojects.design.patterns.chapter02Factory.ConcreteProduct2;
-import com.run.myprojects.design.patterns.chapter02Factory.Product;
+import com.run.myprojects.design.patterns.chapter02Factory.definition.ConcreteProduct1;
+import com.run.myprojects.design.patterns.chapter02Factory.definition.ConcreteProduct2;
+import com.run.myprojects.design.patterns.chapter02Factory.definition.Product;
 
 import java.util.HashMap;
 import java.util.Map;
