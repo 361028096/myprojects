@@ -36,4 +36,19 @@ public class testStanard {
         System.out.println(s.equals(s1));
     }
 
+    @Test
+    public void test4() {
+        System.out.println(testFinally());
+    }
+
+    private boolean testFinally() {
+        try{
+            return true;
+        } catch (Exception e) {
+            return false;
+        } finally {
+            System.out.println("finally....");
+        }
+    }
+
 }

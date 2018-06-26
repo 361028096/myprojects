@@ -8,22 +8,22 @@
     <!-- 扫描注解 -->
     <context:component-scan base-package="com.run.mvc.controller"/>
 
-    <!--<bean id="controllerAop" class="com.run.mvc.aop.ControllerAop"/>-->
-    <!--<aop:config>-->
-        <!--&lt;!&ndash;<aop:pointcut id="pointcut"-->
-        <!--expression="execution(com.bkjk.cf.finance.vo.ResponseVo com.bkjk.cf.finance.controller.*.*(..))"/>&ndash;&gt;-->
-        <!--<aop:pointcut id="pointcut"-->
-                      <!--expression="execution(* com.run.mvc.controller.TestAopController.*(..))"/>-->
-        <!--<aop:aspect ref="controllerAop">-->
-            <!--&lt;!&ndash;<aop:around method="handlerControllerMethod"&ndash;&gt;-->
-            <!--&lt;!&ndash;pointcut-ref="pointcut"/>&ndash;&gt;-->
-            <!--<aop:before method="beforeMethod" pointcut-ref="pointcut"/>-->
-            <!--<aop:after method="afterMethod" pointcut-ref="pointcut"/>-->
-            <!--<aop:after-returning method="returnMethod" pointcut-ref="pointcut"/>-->
-            <!--<aop:after-throwing method="throwableMethod" pointcut-ref="pointcut" throwing="tx"/>-->
-        <!--</aop:aspect>-->
-    <!--</aop:config>-->
-    <!--<aop:aspectj-autoproxy/>-->
+    <bean id="controllerAop" class="com.run.mvc.aop.ControllerAop"/>
+    <aop:config>
+        <!--<aop:pointcut id="pointcut"
+        expression="execution(com.bkjk.cf.finance.vo.ResponseVo com.bkjk.cf.finance.controller.*.*(..))"/>-->
+        <aop:pointcut id="pointcut"
+                      expression="execution(* com.run.mvc.controller.TestAopController.*(..))"/>
+        <aop:aspect ref="controllerAop">
+            <!--<aop:around method="handlerControllerMethod"-->
+            <!--pointcut-ref="pointcut"/>-->
+            <aop:before method="beforeMethod" pointcut-ref="pointcut"/>
+            <aop:after method="afterMethod" pointcut-ref="pointcut"/>
+            <aop:after-returning method="returnMethod" pointcut-ref="pointcut"/>
+            <aop:after-throwing method="throwableMethod" pointcut-ref="pointcut" throwing="tx"/>
+        </aop:aspect>
+    </aop:config>
+    <aop:aspectj-autoproxy/>
 
 
 
